@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 if (process.argv.length < 3) {
-  console.log(`node dec2hex.js 256`);
+  console.log(`[Usage] dec2hex 256`);
   process.exit(-1);
 }
 
