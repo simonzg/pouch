@@ -1,0 +1,28 @@
+{
+  "name": "pouch",
+  "version": "1.0.0",
+  "description": "Development utilities CLI",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simonzg/pouch.git"
+  },
+  "author": "Simon.Z",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/simonzg/pouch/issues"
+  },
+  "homepage": "https://github.com/simonzg/pouch#readme",
+  "bin": {
+    "hex2dec": "./src/hex2dec.js",
+    "dec2hex": "./src/dec2hex.js",
+    "k256": "./src/keccak256.js",
+    "lower": "./src/lower.js",
+    "upper": "./src/upper.js"
+  },
+  "dependencies": {
+    "ethers": "^5.4.7"
+  }
+}
