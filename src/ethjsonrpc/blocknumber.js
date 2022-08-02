@@ -12,4 +12,7 @@ if (process.argv.length < 3) {
   console.log(`Eth rpc call to: `, url);
   const res = await axios.post(url, { jsonrpc: '2.0', method: 'eth_blockNumber', params: [], id: 2 });
   console.log('Response:', res.data);
+  if (res.data && res.data.result) {
+    console.log('Block number: ', parseInt(res.data.result, 16));
+  }
 })();

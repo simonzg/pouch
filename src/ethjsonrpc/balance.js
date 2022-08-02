@@ -17,4 +17,7 @@ if (process.argv.length < 4) {
     id: 1,
   });
   console.log('Response:', res.data);
+  if (res.data && res.data.result) {
+    console.log('Balance: ', parseInt(res.data.result, 16));
+  }
 })();
