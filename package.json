@@ -30,12 +30,14 @@
     "balance": "./src/ethjsonrpc/balance.js",
     "create-keystore": "./src/create-keystore.js",
     "decode-keystore": "./src/decode-keystore.js",
-    "rlp-decode": "./src/rlp-decode.js"
+    "rlp-decode": "./src/rlp-decode.js",
+    "str2hex": "./src/str2hex.js"
   },
   "dependencies": {
     "@meterio/devkit": "^1.6.12",
     "axios": "^0.23.0",
     "blake2b": "^2.1.4",
+    "ethereumjs-wallet": "^1.0.2",
     "ethers": "^5.4.7",
     "prompts": "^2.4.2",
     "rlp": "^3.0.0"
