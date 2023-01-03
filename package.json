@@ -18,9 +18,9 @@
   "bin": {
     "hex2dec": "./src/hex2dec.js",
     "dec2hex": "./src/dec2hex.js",
-    "k256": "./src/keccak256.js",
-    "hex-blake": "./src/hex-blake2b.js",
-    "str-blake": "./src/str-blake2b.js",
+    "k256": "./src/crypto/keccak256.js",
+    "hex-blake": "./src/crypto/hex-blake2b.js",
+    "str-blake": "./src/crypto/str-blake2b.js",
     "lower": "./src/lower.js",
     "upper": "./src/upper.js",
     "len": "./src/len.js",
@@ -28,17 +28,19 @@
     "netversion": "./src/ethjsonrpc/netversion.js",
     "blocknumber": "./src/ethjsonrpc/blocknumber.js",
     "balance": "./src/ethjsonrpc/balance.js",
-    "create-keystore": "./src/create-keystore.js",
-    "decode-keystore": "./src/decode-keystore.js",
+    "create-keystore": "./src/keystore/create-keystore.js",
+    "decode-keystore": "./src/keystore/decode-keystore.js",
     "rlp-decode": "./src/rlp-decode.js",
-    "str2hex": "./src/str2hex.js"
+    "str2hex": "./src/str2hex.js",
+    "committee": "./src/ops/committee.js",
+    "injail": "./src/ops/injail.js"
   },
   "dependencies": {
-    "@meterio/devkit": "^1.6.12",
-    "axios": "^0.23.0",
+    "@meterio/devkit": "^1.6.20",
+    "axios": "^1.2.2",
     "blake2b": "^2.1.4",
     "ethereumjs-wallet": "^1.0.2",
-    "ethers": "^5.4.7",
+    "ethers": "^5.7.2",
     "prompts": "^2.4.2",
     "rlp": "^3.0.0"
   }
