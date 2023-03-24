@@ -3,7 +3,7 @@
 var rlp = require('rlp');
 
 if (process.argv.length < 3) {
-  console.log(`[Usage] b2b 'hex'`);
+  console.log(`[Usage] rlp-decode 'hex'`);
   process.exit(-1);
 }
 

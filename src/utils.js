@@ -1,4 +1,5 @@
 const fs = require('fs');
+const ethers = require('ethers');
 
 const loadProviderMap = () => {
   if (!process.env.PROVIDERS_CONFIG) {
@@ -35,4 +36,9 @@ const loadRpcUrl = (nameOrUrl) => {
   return nameOrUrl;
 };
 
-module.exports = { loadRpcUrl };
+const privateKeyToAddress = (pk) => {
+  const wallet = new ethers.Wallet(pk);
+  return wallet.address.toLowerCase();
+};
+
+module.exports = { loadRpcUrl, privateKeyToAddress };
