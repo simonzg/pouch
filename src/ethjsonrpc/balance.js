@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const axios = require('axios');
 const { loadRpcUrl } = require('../utils');
+const { BigNumber } = require('bignumber.js');
 
 if (process.argv.length < 4) {
   console.log(`[Usage] balance http://...eth-json-rpc-endpoint 0x...address`);
@@ -18,6 +19,6 @@ if (process.argv.length < 4) {
   });
   console.log('Response:', res.data);
   if (res.data && res.data.result) {
-    console.log('Balance: ', parseInt(res.data.result, 16));
+    console.log('Balance: ', new BigNumber(res.data.result).toFixed(0));
   }
 })();
