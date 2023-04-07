@@ -9,7 +9,8 @@ if (process.argv.length < 3) {
 
 (async () => {
   const url = loadRpcUrl(process.argv[2]);
-  console.log(`Eth rpc call to: `, url);
-  const res = await axios.post(url, { jsonrpc: '2.0', method: 'net_version', id: 1 });
+  const data = { jsonrpc: '2.0', method: 'net_version', id: 1 };
+  console.log(`curl -d '${JSON.stringify(data)}' `, url);
+  const res = await axios.post(url, data);
   console.log('Response:', res.data);
 })();

@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const ethers = require('ethers');
 
 if (process.argv.length < 3) {
