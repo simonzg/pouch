@@ -24,8 +24,8 @@ const runBatchTransfer = async (csvfile, options) => {
     if (!addr.match(ADDR_PATTERN)) {
       continue;
     }
-    const mtr = new BigNumber(items[1]);
-    const mtrg = new BigNumber(items[2]);
+    const mtr = new BigNumber(items[1]).times(1e18);
+    const mtrg = new BigNumber(items[2]).times(1e18);
     natives.push(new NativeTransfer(addr, mtr, mtrg));
   }
   for (const tr of natives) {

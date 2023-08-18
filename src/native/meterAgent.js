@@ -75,11 +75,11 @@ class MeterAgent {
     let rpcUrl = '';
     let restUrl = '';
     if (network === 'metermain') {
-      rpcUrl = 'http://rpc.meter.io';
-      restUrl = 'http://mainnet.meter.io:8669';
+      rpcUrl = 'https://rpc.meter.io';
+      restUrl = 'https://mainnet.meter.io';
     } else if (network === 'metertest') {
-      rpcUrl = 'http://t01.meter.io:8545';
-      restUrl = 'http://t01.meter.io:8669';
+      rpcUrl = 'https://rpctest.meter.io';
+      restUrl = 'http://testnet.meter.io';
     } else {
       throw new Error('could not recognize network: ' + network);
     }
@@ -87,10 +87,17 @@ class MeterAgent {
     const address = privateKeyToAddress(pk);
     const addr = '0x' + address.toString('hex'); // address
     this.addr = addr;
+    this.network = network;
     // web3 is a standard web3 client on rpcUrl
     this.web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
     this.web3.eth.accounts.wallet.add(pk);
 
+    let chainTag = TestnetChainTag; // chainTag for testnet
+    if (this.network === 'metermain') {
+      chainTag = MainnetChainTag;
+    }
+    this.chainTag = chainTag;
+    console.log(`network: ${network}, chainTag: ${chainTag}`);
     // mweb3 is a meterified web3 client on restUrl
     this.mweb3 = meterify(new Web3(), restUrl);
     this.mweb3.eth.accounts.wallet.add(pk);
@@ -164,13 +171,9 @@ class MeterAgent {
 
     const best = await this.getBest();
     const blockRef = best.hash.substr(0, 18);
-    let chainTag = TestnetChainTag; // chainTag for testnet
-    if (this.network === 'mainnet') {
-      chainTag = MainnetChainTag;
-    }
 
     let txObj = {
-      chainTag,
+      chainTag: this.chainTag,
       blockRef, // the first 8 bytes of latest block
       expiration: 48, // blockRefHeight + expiration is the height for tx expire
       clauses,
@@ -226,13 +229,9 @@ class MeterAgent {
 
     const best = await this.getBest();
     const blockRef = best.hash.substr(0, 18);
-    let chainTag = TestnetChainTag; // chainTag for testnet
-    if (this.network === 'mainnet' || this.network === 'mainstage') {
-      chainTag = MainnetChainTag;
-    }
 
     let txObj = {
-      chainTag,
+      chainTag: this.chainTag,
       blockRef, // the first 8 bytes of latest block
       expiration: 48, // blockRefHeight + expiration is the height for tx expire
       clauses,
