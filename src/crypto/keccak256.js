@@ -7,4 +7,4 @@ if (process.argv.length < 3) {
   process.exit(-1);
 }
 
-console.log(utils.id(process.argv[2]));
+console.log(utils.id(Buffer.from(process.argv[2].replace('0x', ''), 'hex').toString()));
