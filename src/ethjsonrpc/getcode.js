@@ -3,17 +3,17 @@ const axios = require('axios');
 const { loadRpcUrl } = require('../utils');
 
 if (process.argv.length < 3) {
-  console.log(`[Usage] tx [network|rpcurl] txhash`);
+  console.log(`[Usage] code [network|rpcurl] address`);
   process.exit(-1);
 }
 
 (async () => {
   const url = loadRpcUrl(process.argv[2]);
-  const txhash = process.argv[3];
-  const data = { jsonrpc: '2.0', method: 'eth_getTransactionByHash', params: [txhash], id: 2 };
+  const address = process.argv[3];
+  const data = { jsonrpc: '2.0', method: 'eth_getCode', params: [address], id: 2 };
   console.log(`curl -d '${JSON.stringify(data)}' `, url);
   const res = await axios.post(url, data);
   if (res.data && res.data.result) {
-    console.log('Transaction: ', res.data.result);
+    console.log('Code: ', res.data.result);
   }
 })();

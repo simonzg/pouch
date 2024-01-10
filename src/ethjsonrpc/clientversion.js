@@ -11,5 +11,5 @@ if (process.argv.length < 3) {
   const url = loadRpcUrl(process.argv[2]);
   const data = { jsonrpc: '2.0', method: 'web3_clientVersion', id: 1 };
   const res = await axios.post(url, data);
-  console.log('Response:', res.data);
+  console.log('ClientVersion:', res.data);
 })();

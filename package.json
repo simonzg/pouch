@@ -34,6 +34,7 @@
     "block": "./src/ethjsonrpc/getblock.js",
     "tx": "./src/ethjsonrpc/gettx.js",
     "receipt": "./src/ethjsonrpc/getreceipt.js",
+    "code": "./src/ethjsonrpc/getcode.js",
     "create-keystore": "./src/keystore/create-keystore.js",
     "decode-keystore": "./src/keystore/decode-keystore.js",
     "committee": "./src/ops/committee.js",

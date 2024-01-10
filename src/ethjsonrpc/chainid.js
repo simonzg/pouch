@@ -12,8 +12,7 @@ if (process.argv.length < 3) {
   const data = { jsonrpc: '2.0', method: 'eth_chainId', params: [], id: 10 };
   console.log(`curl -d '${JSON.stringify(data)}' `, url);
   const res = await axios.post(url, data);
-  console.log('Response:', res.data);
   if (res.data && res.data.result) {
-    console.log('chainId: ', parseInt(res.data.result, 16));
+    console.log('ChainId: ', parseInt(res.data.result, 16));
   }
 })();

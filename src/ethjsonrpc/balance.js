@@ -18,7 +18,6 @@ if (process.argv.length < 4) {
   };
   console.log(`curl -d '${JSON.stringify(data)}' `, url);
   const res = await axios.post(url, data);
-  console.log('Response:', res.data);
   if (res.data && res.data.result) {
     console.log('Balance: ', new BigNumber(res.data.result).toFixed(0));
   }
