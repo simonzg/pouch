@@ -4,16 +4,16 @@ const { loadRpcUrl } = require('../utils');
 const { BigNumber } = require('bignumber.js');
 
 if (process.argv.length < 4) {
-  console.log(`[Usage] balance http://...eth-json-rpc-endpoint 0x...address`);
+  console.log(`[Usage] balance [network|rpcurl] address`);
   process.exit(-1);
 }
 
 (async () => {
-  const url = loadRpcUrl(process.argv[2]);
+  const url = loadRpcUrl(process.argv[3]);
   const data = {
     jsonrpc: '2.0',
     method: 'eth_getBalance',
-    params: [process.argv[3], 'latest'],
+    params: [process.argv[2], 'latest'],
     id: 1,
   };
   console.log(`curl -d '${JSON.stringify(data)}' `, url);

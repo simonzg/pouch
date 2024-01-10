@@ -1,6 +1,6 @@
 {
   "localhost": "http://localhost:8545",
-  "meter": "http://rpc.meter.io",
+  "metermain": "http://rpc.meter.io",
   "metertest": "http://rpctest.meter.io",
   "mainstage": "http://mainstage.meter.io:8545",
 

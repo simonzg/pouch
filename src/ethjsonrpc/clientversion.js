@@ -3,7 +3,7 @@ const axios = require('axios');
 const { loadRpcUrl } = require('../utils');
 
 if (process.argv.length < 3) {
-  console.log(`[Usage] clientversion http://...eth-json-rpc-endpoint`);
+  console.log(`[Usage] clientversion [network|rpcurl]`);
   process.exit(-1);
 }
 
