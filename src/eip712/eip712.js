@@ -33,36 +33,30 @@ const signTypedDataWithEthers = async (privKey) => {
 };
 
 const signTypedDataRaw = async (privKey) => {
-  const abiCoder = new ethers.utils.AbiCoder();
-  const EIP712_TYPEHASH = ethers.utils.id(
+  const abiCoder = new ethers.AbiCoder();
+  const EIP712_TYPEHASH = ethers.id(
     'EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)'
   );
   const domainHex = abiCoder.encode(
     ['bytes32', 'string', 'string', 'uint256', 'address'],
-    [
-      EIP712_TYPEHASH,
-      ethers.utils.id(domain.name),
-      ethers.utils.id(domain.version),
-      domain.chainId,
-      domain.verifyingContract,
-    ]
+    [EIP712_TYPEHASH, ethers.id(domain.name), ethers.id(domain.version), domain.chainId, domain.verifyingContract]
   );
   console.log('domainHex', domainHex);
-  const MAIL_TYPEHASH = ethers.utils.id('Mail(address from,address to,string contents)');
+  const MAIL_TYPEHASH = ethers.id('Mail(address from,address to,string contents)');
   const valueHex = abiCoder.encode(
     ['bytes32', 'address', 'address', 'string'],
-    [MAIL_TYPEHASH, value.from, value.to, ethers.utils.id(value.contents)]
+    [MAIL_TYPEHASH, value.from, value.to, ethers.id(value.contents)]
   );
 
-  const domainSeparator = ethers.utils.id(domainHex);
+  const domainSeparator = ethers.id(domainHex);
 
   console.log('domain separator:', domainSeparator);
-  const hashStruct = ethers.utils.id(valueHex);
+  const hashStruct = ethers.id(valueHex);
   console.log('hash struct:', hashStruct);
 
   const signhash = '0x1901' + domainSeparator.toString('hex') + hashStruct.toString('hex');
 
-  const PERMIT_TYPEHASH = ethers.utils.id(
+  const PERMIT_TYPEHASH = ethers.id(
     'Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)'
   );
   console.group(PERMIT_TYPEHASH);

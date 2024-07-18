@@ -35,23 +35,17 @@ const signTypedDataWithEthers = async (privKey) => {
 };
 
 const signTypedDataRaw = async (privKey) => {
-  const abiCoder = new ethers.utils.AbiCoder();
-  const EIP712_TYPEHASH = ethers.utils.id(
+  const abiCoder = new ethers.AbiCoder();
+  const EIP712_TYPEHASH = ethers.id(
     'EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)'
   );
   const domainHex = abiCoder.encode(
     ['bytes32', 'string', 'string', 'uint256', 'address'],
-    [
-      EIP712_TYPEHASH,
-      ethers.utils.id(domain.name),
-      ethers.utils.id(domain.version),
-      domain.chainId,
-      domain.verifyingContract,
-    ]
+    [EIP712_TYPEHASH, ethers.id(domain.name), ethers.id(domain.version), domain.chainId, domain.verifyingContract]
   );
-  const domainSeparator = ethers.utils.id(domainHex);
+  const domainSeparator = ethers.id(domainHex);
 
-  const PERMIT_TYPEHASH = ethers.utils.id(
+  const PERMIT_TYPEHASH = ethers.id(
     'Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)'
   );
   const valueHex = abiCoder.encode(['bytes32'].concat(types.Permit.map((p) => p.type)), [
@@ -63,7 +57,7 @@ const signTypedDataRaw = async (privKey) => {
     value.deadline,
   ]);
 
-  const hashStruct = ethers.utils.id(valueHex);
+  const hashStruct = ethers.id(valueHex);
 
   const signhash =
     '0x1901' + domainSeparator.toString('hex').replace('0x', '') + hashStruct.toString('hex').replace('0x', '');

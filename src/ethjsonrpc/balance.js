@@ -1,24 +1,11 @@
 #!/usr/bin/env node
-const axios = require('axios');
-const { loadRpcUrl } = require('../utils');
-const { BigNumber } = require('bignumber.js');
-
-if (process.argv.length < 4) {
-  console.log(`[Usage] balance [network|rpcurl] address`);
-  process.exit(-1);
-}
+const { selectNetworkAsync, inputAddressAsync } = require('../utils');
+const { ZeroAddress } = require('ethers');
 
 (async () => {
-  const url = loadRpcUrl(process.argv[3]);
-  const data = {
-    jsonrpc: '2.0',
-    method: 'eth_getBalance',
-    params: [process.argv[2], 'latest'],
-    id: 1,
-  };
-  console.log(`curl -d '${JSON.stringify(data)}' `, url);
-  const res = await axios.post(url, data);
-  if (res.data && res.data.result) {
-    console.log('Balance: ', new BigNumber(res.data.result).toFixed(0));
-  }
+  const { network, provider } = await selectNetworkAsync();
+
+  const address = inputAddressAsync('address', ZeroAddress);
+  const num = await provider.getBalance(address);
+  console.log(`Balance: ${num}`);
 })();

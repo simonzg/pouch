@@ -34,15 +34,15 @@ const { cry } = require('@meterio/devkit');
     },
   ]);
 
-  const abiCoder = new ethers.utils.AbiCoder();
+  const abiCoder = new ethers.AbiCoder();
   const domainHex = abiCoder.encode(
     ['string', 'string', 'uint256', 'address'],
     [domain.name, domain.version, domain.chainId, domain.verifyingContract]
   );
   const valueHex = abiCoder.encode(['address', 'address', 'string'], [value.from, value.to, value.contents]);
 
-  const domainSeparator = ethers.utils.id(Buffer.from(domainHex, 'hex'));
-  const hashStruct = ethers.utils.id(Buffer.from(valueHex, 'hex'));
+  const domainSeparator = ethers.id(Buffer.from(domainHex, 'hex'));
+  const hashStruct = ethers.id(Buffer.from(valueHex, 'hex'));
 
   const signhash = '0x1901' + domainSeparator.toString('hex') + hashStruct.toString('hex');
 

@@ -14,11 +14,13 @@ const createAcct = () => {
   if (process.argv.length == 3) {
     const prefix = '0x' + process.argv[2].replace('0x', '');
     const account = await Account.findOne({ address: { $regex: prefix + '.+' } });
-    if (account) {
+    if (!account) {
       console.log(`Found Existed Account in DB:`);
       console.log(`Address: ${account.address}`);
       console.log(`Lower Address: ${account.address.toLowerCase()}`);
       console.log(`Private Key: ${account.privkey}`);
+      const wallet = new ethers.Wallet(account.privkey);
+      console.log(`Mnemonic: ${wallet.mnemonic}`);
 
       await disconnectDB();
       return;
@@ -35,6 +37,7 @@ const createAcct = () => {
           console.log(`Address: ${wallet.address}`);
           console.log(`Lower Address: ${wallet.address.toLowerCase()}`);
           console.log(`Private Key: ${wallet.privateKey}`);
+          console.log(`xMnemonic: ${JSON.stringify(wallet.mnemonic)}`);
           return;
         }
       }

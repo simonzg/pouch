@@ -1,15 +1,10 @@
 #!/usr/bin/env node
 const axios = require('axios');
-const { loadRpcUrl } = require('../utils');
-
-if (process.argv.length < 3) {
-  console.log(`[Usage] clientversion [network|rpcurl]`);
-  process.exit(-1);
-}
+const { loadRpcUrl, selectNetworkAsync } = require('../utils');
 
 (async () => {
-  const url = loadRpcUrl(process.argv[2]);
+  const { rpcUrl } = await selectNetworkAsync();
   const data = { jsonrpc: '2.0', method: 'web3_clientVersion', id: 1 };
-  const res = await axios.post(url, data);
+  const res = await axios.post(rpcUrl, data);
   console.log('ClientVersion:', res.data);
 })();

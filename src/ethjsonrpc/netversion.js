@@ -1,16 +1,11 @@
 #!/usr/bin/env node
 const axios = require('axios');
-const { loadRpcUrl } = require('../utils');
-
-if (process.argv.length < 3) {
-  console.log(`[Usage] netversion [network|rpcurl]`);
-  process.exit(-1);
-}
+const { loadRpcUrl, selectNetworkAsync } = require('../utils');
 
 (async () => {
-  const url = loadRpcUrl(process.argv[2]);
+  const { rpcUrl } = await selectNetworkAsync();
   const data = { jsonrpc: '2.0', method: 'net_version', id: 1 };
-  console.log(`curl -d '${JSON.stringify(data)}' `, url);
-  const res = await axios.post(url, data);
+  console.log(`curl -d '${JSON.stringify(data)}' `, rpcUrl);
+  const res = await axios.post(rpcUrl, data);
   console.log('NetVersion:', res.data);
 })();

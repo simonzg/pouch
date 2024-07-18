@@ -1,19 +1,12 @@
 #!/usr/bin/env node
-const axios = require('axios');
-const { loadRpcUrl } = require('../utils');
-
-if (process.argv.length < 3) {
-  console.log(`[Usage] block [network|rpcurl] blocknum`);
-  process.exit(-1);
-}
+const { selectNetworkAsync, inputAddressAsync, inputNumberAsync } = require('../utils');
+const { ZeroAddress } = require('ethers');
 
 (async () => {
-  const url = loadRpcUrl(process.argv[2]);
-  const num = '0x' + Number(process.argv[3]);
-  const data = { jsonrpc: '2.0', method: 'eth_getBlockByNumber', params: [num], id: 2 };
-  console.log(`curl -d '${JSON.stringify(data)}' `, url);
-  const res = await axios.post(url, data);
-  if (res.data && res.data.result) {
-    console.log('Block: ', res.data.result);
-  }
+  const { network, provider } = await selectNetworkAsync();
+
+  const num = await inputNumberAsync('number', '0');
+
+  const block = await provider.getBlock(Number(num));
+  console.log(`Block: `, block);
 })();
