@@ -5,10 +5,17 @@ const RPCS = {
   metertest: 'http://rpctest.meter.io',
   metermain: 'http://rpc.meter.io',
 
+  // Zklink
+  zklink: 'https://rpc.zklink.io',
+  zklinksepolia: 'https://sepolia.rpc.zklink.io',
+
+  // Arbitrum
+  arbitrum: `https://arbitrum.blockpi.network/v1/rpc/${process.env.BLOCKPI_ARBITRUM_KEY}`,
+  arbitrumsepolia: 'https://public.stackup.sh/api/v1/node/arbitrum-sepolia',
+
   // Ethereum
   sepolia: `https://ethereum-sepolia.blockpi.network/v1/rpc/${process.env.BLOCKPI_SEPOLIA_KEY}`,
   ethereum: `https://ethereum.blockpi.network/v1/rpc/${process.env.BLOCKPI_ETHEREUM_KEY}`,
-  arbitrum: `https://arbitrum.blockpi.network/v1/rpc/${process.env.BLOCKPI_ARBITRUM_KEY}`,
 
   // Base
   basetest: 'https://goerli.base.org',
