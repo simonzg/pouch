@@ -1,23 +1,10 @@
 #!/usr/bin/env node
-const axios = require('axios');
-const {
-  selectNetworkAsync,
-  inputAddressAsync,
-  inputStrAsync,
-  inputNumberAsync,
-  inputHexAsync,
-  inputBytes32Async,
-} = require('../utils');
+const { inputAddressAsync, inputStrAsync, inputNumberAsync, inputBytes32Async } = require('../utils');
 const { ZeroAddress } = require('ethers');
 const { FunctionFragment } = require('ethers');
-const { zeroAddress } = require('ethereumjs-util');
 const { Interface } = require('ethers');
 
 (async () => {
-  const { network, provider } = await selectNetworkAsync();
-  const from = await inputAddressAsync('from', ZeroAddress);
-  const to = await inputAddressAsync('to', ZeroAddress);
-  const value = await inputNumberAsync('value', '0');
   const abi = await inputStrAsync('abi', '');
 
   let data = '';
@@ -44,19 +31,9 @@ const { Interface } = require('ethers');
 
     const iface = new Interface([funcABI]);
     data = iface.encodeFunctionData(funcABI.name, args);
+    console.log(`abi: ${funcABI}`);
+    console.log(`data: ${data}`);
   } catch (e) {
     console.log(e);
   }
-  if (!data) {
-    data = await inputHexAsync('data', '');
-  }
-  const tx = {
-    from: from == ZeroAddress ? undefined : from,
-    to: to == ZeroAddress ? undefined : to,
-    value,
-    data,
-  };
-  console.log(tx);
-  const res = await provider.call(tx);
-  console.log(res);
 })();

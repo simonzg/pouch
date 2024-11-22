@@ -30,6 +30,9 @@ const RPCS = {
 
   avalanche: 'https://api.avax.network/ext/bc/C/rpc',
   polygon: 'https://polygon-mainnet.infura.io/v3/c7a449e81b364f2a831a530cb0458b4c',
+
+  // Theta
+  // theta: 'https://eth-rpc-api.thetatoken.org/rpc',
 };
 
 const getRPCEndpoint = (network) => {

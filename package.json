@@ -16,8 +16,11 @@
   },
   "homepage": "https://github.com/simonzg/pouch#readme",
   "bin": {
-    "create-account": "./src/account/create-account.js",
-    "p2addr": "./src/account/private2address.js",
+    "create-btc-account": "./src/bitcoin/create-btc-account.js",
+    "create-evm-account": "./src/evm/create-evm-account.js",
+    "p2addr": "./src/evm/private2address.js",
+    "abiencode": "./src/evm/abiencode.js",
+    "decodedata": "./src/evm/decodedata.js",
     "hex2dec": "./src/string/hex2dec.js",
     "dec2hex": "./src/string/dec2hex.js",
     "len": "./src/string/len.js",
@@ -47,20 +50,29 @@
     "cutdata": "./src/string/cutdata.js"
   },
   "dependencies": {
+    "@chainsafe/discv5": "^10.0.1",
+    "@chainsafe/enr": "^4.0.1",
     "@inquirer/prompts": "^5.2.0",
     "@meterio/devkit": "^1.8.0",
     "@supercharge/promise-pool": "^3.1.1",
     "axios": "^1.3.4",
     "bignumber.js": "^9.1.1",
+    "bitcoinjs-lib": "^7.0.0-rc.0",
     "blake2b": "^2.1.4",
     "commander": "^10.0.0",
     "dotenv": "^16.4.1",
+    "ecpair": "^3.0.0-rc.0",
     "ethereumjs-util": "^7.1.5",
     "ethers": "^6.13.0",
     "meterify": "^1.4.7",
     "mongoose": "^6.0.0",
     "prompts": "^2.4.2",
     "rlp": "^3.0.0",
+    "tiny-secp256k1": "^2.2.3",
     "web3": "1.2.11"
+  },
+  "devDependencies": {
+    "@ethereumjs/devp2p": "^6.1.3",
+    "typescript": "^5.6.3"
   }
 }
