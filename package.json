@@ -31,6 +31,7 @@
     "k256": "./src/crypto/keccak256.js",
     "blake2b": "./src/crypto/blake2b.js",
     "clientversion": "./src/ethjsonrpc/clientversion.js",
+    "format-addr": "./src/evm/format-address.js",
     "netversion": "./src/ethjsonrpc/netversion.js",
     "blocknumber": "./src/ethjsonrpc/blocknumber.js",
     "balance": "./src/ethjsonrpc/balance.js",

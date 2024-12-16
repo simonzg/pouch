@@ -5,6 +5,8 @@ const RPCS = {
   metertest: 'http://rpctest.meter.io',
   metermain: 'http://rpc.meter.io',
 
+  // Bera Bartio
+  berabartio: 'https://bartio.rpc.berachain.com',
   // Zklink
   zklink: 'https://rpc.zklink.io',
   zklinksepolia: 'https://sepolia.rpc.zklink.io',
