@@ -7,7 +7,7 @@ const {
   inputHexAsync,
   inputBytes32Async,
 } = require('../utils');
-const { ZeroAddress } = require('ethers');
+const { ZeroAddress, toBeHex } = require('ethers');
 const { FunctionFragment } = require('ethers');
 const { Interface } = require('ethers');
 const { confirm } = require('@inquirer/prompts');
@@ -18,10 +18,10 @@ const { confirm } = require('@inquirer/prompts');
   const to = await inputAddressAsync('to', ZeroAddress);
   const value = await inputNumberAsync('value', '0');
   const hasABI = await confirm({ message: '是否有ABI' });
+  let data = '';
   if (hasABI) {
     const abi = await inputStrAsync('abi', '');
 
-    let data = '';
     try {
       const funcABI = FunctionFragment.from(abi);
       let args = [];
@@ -57,13 +57,19 @@ const { confirm } = require('@inquirer/prompts');
     data = await inputHexAsync('data', '');
   }
 
-  const tx = {
+  const params = {
     from: from == ZeroAddress ? undefined : from,
     to: to == ZeroAddress ? undefined : to,
-    value,
+    value: toBeHex(value),
     data,
   };
-  console.log(tx);
-  const res = await provider.call(tx);
-  console.log(res);
+  console.log('Params:', params);
+  console.log(
+    `Cmd: \ncurl  -H "Content-Type: application/json" -d '{"jsonrpc": "2.0", "method": "eth_call", "params": [${JSON.stringify(
+      params
+    )}, "latest"], "id": 1}'`
+  );
+
+  const res = await provider.call(params);
+  console.log('Result:', res);
 })();
