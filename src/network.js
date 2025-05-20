@@ -2,7 +2,7 @@ const { JsonRpcProvider } = require('ethers');
 require('dotenv').config();
 
 const RPCS = {
-  metertest: 'http://rpctest.meter.io',
+  metertest: 'https://rpctest.meter.io',
   metermain: 'http://rpc.meter.io',
 
   // Bera Bartio
@@ -32,6 +32,13 @@ const RPCS = {
 
   avalanche: 'https://api.avax.network/ext/bc/C/rpc',
   polygon: 'https://polygon-mainnet.infura.io/v3/c7a449e81b364f2a831a530cb0458b4c',
+
+  // Hemi
+  hemisepolia: 'https://testnet.rpc.hemi.network/rpc',
+  hemi: 'https://rpc.hemi.network/rpc',
+
+  // Monad
+  monadtest: 'https://testnet-rpc2.monad.xyz/52227f026fa8fac9e2014c58fbf5643369b3bfc6',
 
   // Theta
   // theta: 'https://eth-rpc-api.thetatoken.org/rpc',

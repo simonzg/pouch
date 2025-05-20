@@ -9,12 +9,14 @@ const createAcct = () => {
   return wallet;
 };
 
+const trials = 10000000;
+
 (async () => {
   await connectDB('rtxdb');
   if (process.argv.length == 3) {
     const prefix = '0x' + process.argv[2].replace('0x', '');
     const account = await Account.findOne({ address: { $regex: prefix + '.+' } });
-    if (!account) {
+    if (account) {
       console.log(`Found Existed Account in DB:`);
       console.log(`Address: ${account.address}`);
       console.log(`Lower Address: ${account.address.toLowerCase()}`);
@@ -27,7 +29,6 @@ const createAcct = () => {
     }
     const re = new RegExp('0x[0-9a-zA-Z]', 'i');
     if (re.test(prefix)) {
-      const trials = 100000;
       for (let i = 0; i < trials; i++) {
         const wallet = createAcct();
         const acct = new Account({ privkey: wallet.privateKey.toLowerCase(), address: wallet.address.toLowerCase() });

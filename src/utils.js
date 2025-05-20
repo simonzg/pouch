@@ -2,6 +2,7 @@ const { isAddress, isHexString, isBytesLike } = require('ethers');
 const { confirm, input, select, password } = require('@inquirer/prompts');
 const { getRPCEndpoint, getProvider, RPCS } = require('./network');
 const { getAllABIs } = require('./abi');
+const { JsonRpcProvider } = require('ethers');
 
 const loadRpcUrl = (network) => {
   return getRPCEndpoint(network);
@@ -88,6 +89,18 @@ const inputNumberAsync = async (name, defaultVal) => {
   return num;
 };
 
+const inputNumberArrayAsync = async (name, defaultVal) => {
+  const list = await input({
+    message: `输入${name}数字列表(使用逗号分隔):`,
+    default: defaultVal,
+    validate: (value = '') => !value.split(',').every(isNaN) || 'Pass a valid address array',
+  });
+  return list
+    .split(',')
+    .filter((v) => !!v)
+    .map((v) => Number(v));
+};
+
 const inputPasswordAsync = async (name) => {
   const passphrase = await password({
     message: `输入${green(name)}的Passphrase:`,
@@ -107,25 +120,35 @@ const inputPrivateKeyAsync = async (network) => {
 };
 
 const selectNetworkAsync = async () => {
+  let choices = Object.keys(RPCS).map((k) => ({
+    name: `${k} (${RPCS[k]})`,
+    value: k,
+  }));
+
   const network = await select({
     message: `选择网络:`,
-    choices: Object.keys(RPCS).map((k) => ({
-      name: `${k} (${RPCS[k]})`,
-      value: k,
-    })),
+    choices: choices.concat([{ name: '自由输入RPC', value: 'input' }]),
   });
   selectedNetwork = network;
 
-  const provider = getProvider(network);
-  if (!provider) {
-    console.log(`不支持网络 ${network}`);
+  if (network == 'input') {
+    const rpcEndpoint = await inputStrAsync('rpc endpoint', '');
+    console.log('rpc endpoint: ', rpcEndpoint);
+    const provider = new JsonRpcProvider(rpcEndpoint);
+    selectedProvider = provider;
+    return { network: 'unknown', rpcUrl: rpcEndpoint, provider };
+  } else {
+    const provider = getProvider(network);
+    if (!provider) {
+      console.log(`不支持网络 ${network}`);
+    }
+    selectedProvider = provider;
+    return {
+      network,
+      rpcUrl: RPCS[network],
+      provider,
+    };
   }
-  selectedProvider = provider;
-  return {
-    network,
-    rpcUrl: RPCS[network],
-    provider,
-  };
 };
 
 module.exports = {
@@ -142,6 +165,7 @@ module.exports = {
   selectNetworkAsync,
   selectAsync,
   inputNumberAsync,
+  inputNumberArrayAsync,
   inputHexAsync,
 
   getAllABIs,

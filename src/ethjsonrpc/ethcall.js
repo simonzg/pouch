@@ -6,11 +6,13 @@ const {
   inputNumberAsync,
   inputHexAsync,
   inputBytes32Async,
+  inputNumberArrayAsync,
 } = require('../utils');
 const { ZeroAddress, toBeHex } = require('ethers');
 const { FunctionFragment } = require('ethers');
 const { Interface } = require('ethers');
 const { confirm } = require('@inquirer/prompts');
+const { red, green } = require('colors');
 
 (async () => {
   const { provider } = await selectNetworkAsync();
@@ -44,6 +46,8 @@ const { confirm } = require('@inquirer/prompts');
           case 'bytes':
             args.push(await inputHexAsync(inp.name || 'Input<hex>', ''));
             break;
+          case 'uint256[]':
+            args.push(await inputNumberArrayAsync(inp.name || 'Input<number array>', []));
         }
       }
 
@@ -63,9 +67,11 @@ const { confirm } = require('@inquirer/prompts');
     value: toBeHex(value),
     data,
   };
-  console.log('Params:', params);
+  console.log(green('Params:'), params);
   console.log(
-    `Cmd: \ncurl  -H "Content-Type: application/json" -d '{"jsonrpc": "2.0", "method": "eth_call", "params": [${JSON.stringify(
+    `${green(
+      'Curl cmd:'
+    )}\n  curl  -H "Content-Type: application/json" -d '{"jsonrpc": "2.0", "method": "eth_call", "params": [${JSON.stringify(
       params
     )}, "latest"], "id": 1}'`
   );
